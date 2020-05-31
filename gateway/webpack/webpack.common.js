@@ -109,16 +109,26 @@ module.exports = options => ({
       }
     }),
     new ForkTsCheckerWebpackPlugin({ eslint: true }),
-    new CopyWebpackPlugin([
-      { from: './node_modules/swagger-ui-dist/*.{js,css,html,png}', to: 'swagger-ui', flatten: true, ignore: ['index.html']},
-      { from: './node_modules/axios/dist/axios.min.js', to: 'swagger-ui'},
-      { from: './src/main/webapp//swagger-ui/', to: 'swagger-ui' },
-      { from: './src/main/webapp/content/', to: 'content' },
-      { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
-      { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
-      // jhipster-needle-add-assets-to-webpack - JHipster will add/remove third-party resources in this array
-      { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
-    ]),
+    new CopyWebpackPlugin({
+      patterns:
+      [
+        {
+          from: './node_modules/swagger-ui-dist/*.{js,css,html,png}',
+          to: 'swagger-ui',
+          globOptions: {
+            flatten: true,
+            ignore: ['index.html'],
+          },
+        },
+        { from: './node_modules/axios/dist/axios.min.js', to: 'swagger-ui'},
+        { from: './src/main/webapp//swagger-ui/', to: 'swagger-ui' },
+        { from: './src/main/webapp/content/', to: 'content' },
+        { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
+        { from: './src/main/webapp/manifest.webapp', to: 'manifest.webapp' },
+        // jhipster-needle-add-assets-to-webpack - JHipster will add/remove third-party resources in this array
+        { from: './src/main/webapp/robots.txt', to: 'robots.txt' }
+      ]
+    }),
     new HtmlWebpackPlugin({
       template: './src/main/webapp/index.html',
       chunksSortMode: 'dependency',
